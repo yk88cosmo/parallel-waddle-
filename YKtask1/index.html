@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width">
+		<title>Weather Forcast</title>
+		<link rel="stylesheet" type="text/css" href="style.css"/>
+	</head>
+	<body>
+		<div class="top">
+			<div id="mainTitle">Weather Forecast</div>
+			<div class='searchContainer' style="width: 290px">
+				<input id="query" type="text" placeholder='Enter a city'/>
+				<button id="search" style="width: 70%">Search</button>
+			</div>
+		</div>
+		<div class="main">
+			<div id="weatherResults"></div>
+			<span id='validMsg'></span>
+		</div>
+		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+		<script src="script.js"></script>
+		<script>
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1;
+		var yyyy = today.getFullYear();
+
+		if(dd<10) {
+			dd = '0'+dd
+		} 
+
+		if(mm<10) {
+			mm = '0'+mm
+		} 
+
+		today = mm + '/' + dd + '/' + yyyy;
+		document.write(today);
+		</script>
+	</body>
+</html>

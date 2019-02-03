@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity List</title>
+<style>
+	.container{overflow:hidden}
+	.tab{float:left}
+	.tab2{margin-left:50px}
+	.tab2 input{display:block; margin-bottom:10px}
+	tr{transition:all .25s ease-in-out}
+    tr:hover{background-color:#EEE;cursor: pointer}
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+	<div class="tab tab1">
+		<table id="table" border="1">
+			<tr>
+				<td>Title</td>
+				<td>Description</td>
+				<td>Date</td>
+			</tr>
+		</table>
+	</div>
+	<div class="tab tab2">
+		Title:<input type="text" name="title" id="title"/>
+		Description:<input type="text" name="description" id="description"/>
+		Date:<input type="text" name="date" id="date"/>
+		
+		<button onclick="addHtmlTableRow();">Add</button>
+		<button onclick="editHtmlSelectedRow();">Edit</button>
+		<button onclick="removeSelectedRow();">Delete</button>
+	</div>
+</div>
+<script type="text/javascript">
+	var rIndex, table = document.getElementById("table");
+	
+	function checkEmptyInput() {
+		var isEmpty = false;
+		var title = document.getElementById("title").value;
+		var description = document.getElementById("description").value;
+		var date = document.getElementById("date").value;
+		if (title === "") {
+			alert("Title cannot be enpty");
+			isEmpty = true;
+		}
+		else if (description === "") {
+			alert("Description cannot be enpty");
+			isEmpty = true;
+		}
+		else if (date === "") {
+			alert("Date cannot be enpty");
+			isEmpty = true;
+		}
+		return isEmpty;
+	}
+
+	function addHtmlTableRow() {
+		if(!checkEmptyInput()) {
+			var newRow = table.insertRow(table.rows.length/2+1);
+			var cell1 = newRow.insertCell(0);
+			var cell2 = newRow.insertCell(1);
+			var cell3 = newRow.insertCell(2);
+			var title = document.getElementById("title").value;
+			var description = document.getElementById("description").value;
+			var date = document.getElementById("date").value;
+		
+			cell1.innerHTML = title;
+			cell2.innerHTML = description;
+			cell3.innerHTML = date;
+		
+			selectRowToInput();
+		}
+	}
+	
+	function selectRowToInput() {
+		for (var i = 1; i < table.rows.length; i++) {
+			table.rows[i].onclick = function() {
+				rIndex = this.rowIndex;
+				document.getElementById("title").value = this.cells[0].innerHTML;
+				document.getElementById("description").value = this.cells[1].innerHTML;
+				document.getElementById("date").value = this.cells[2].innerHTML;
+			};
+		}
+	}
+	selectRowToInput();
+	
+	function editHtmlSelectedRow() {
+		var title = document.getElementById("title").value;
+		var description = document.getElementById("description").value;
+		var date = document.getElementById("date").value;
+		if(!checkEmptyInput()) {
+			table.rows[rIndex].cells[0].innerHTML = title;
+			table.rows[rIndex].cells[1].innerHTML = description;
+			table.rows[rIndex].cells[2].innerHTML = date;
+		}
+	}
+	
+	function removeSelectedRow() {
+		table.deleteRow(rIndex);
+		document.getElementById("title").value = "";
+		document.getElementById("description").value = "";
+		document.getElementById("date").value = "";
+	}
+</script>
+</body>
+</html>
